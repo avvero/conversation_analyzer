@@ -1,0 +1,5 @@
+.gradle
+.idea
+build
+out
+conversation_analyzer.iml
