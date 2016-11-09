@@ -38,8 +38,10 @@ public class CommonRoutes extends RouteBuilder {
         Document document = Document.parse(CommonUtils.dataToJson(message));
         String textEng = translator.translate(message.getText());
         document.put("textEng", textEng);
-        ToneAnalysis toneAnalysis = toneAnalyzerService.analyze(textEng);
-        document.put("analysis", Document.parse(CommonUtils.dataToJson(toneAnalysis)));
+        if (message.getText() != null && !message.getText().trim().equals(textEng.trim())) {
+            ToneAnalysis toneAnalysis = toneAnalyzerService.analyze(textEng);
+            document.put("analysis", Document.parse(CommonUtils.dataToJson(toneAnalysis)));
+        }
         return document;
     }
 
