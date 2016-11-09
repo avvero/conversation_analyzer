@@ -37,11 +37,6 @@ public class CommonRoutes extends RouteBuilder {
     public Document handle(Message message) {
         Document document = Document.parse(CommonUtils.dataToJson(message));
         String text = message.getText();
-        //Цитирование, нужная правая часть
-        String quotes = "&lt;&lt;&lt;";
-        if (text.contains(quotes)) {
-            text = text.substring(text.indexOf(quotes) + quotes.length() + 1, text.length()-1);
-        }
         String textEng = translator.translate(text);
         document.put("textEng", textEng);
         if (message.getText() != null && !message.getText().trim().equals(textEng.trim())) {
